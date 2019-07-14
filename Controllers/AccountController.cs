@@ -23,21 +23,29 @@ namespace Keepr.Controllers
         [HttpPost("Register")]
         public async Task<User> Register([FromBody]UserRegistration creds)
         {
-            User user = _repo.Register(creds);
-            if (user == null) { BadRequest("Invalid Credentials"); }
-            user.SetClaims();
-            await HttpContext.SignInAsync(user._principal);
-            return user;
+            try{
+                User user = _repo.Register(creds);
+                if (user == null) { BadRequest("Invalid Credentials"); }
+                user.SetClaims();
+                await HttpContext.SignInAsync(user._principal);
+                return user;
+            }catch(Exception e){
+                 return Unauthorized(e);
+            }
         }
 
         [HttpPost("Login")]
         public async Task<ActionResult<User>> Login([FromBody]UserLogin creds)
         {
-            User user = _repo.Login(creds);
-            if (user == null) { Unauthorized("Invalid Credentials"); }
-            user.SetClaims();
-            await HttpContext.SignInAsync(user._principal);
-            return user;
+            try{
+                User user = _repo.Login(creds);
+                if (user == null) { Unauthorized("Invalid Credentials"); }
+                user.SetClaims();
+                await HttpContext.SignInAsync(user._principal);
+                return user;
+            }catch(Exception e){
+                 return Unauthorized(e);
+            }
         }
 
 
