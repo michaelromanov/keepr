@@ -2,16 +2,11 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Axios from 'axios'
 import router from './router'
+import AuthService from './AuthService'
 
 Vue.use(Vuex)
 
 let baseUrl = location.host.includes('localhost') ? '//localhost:5000/' : '/'
-
-let auth = Axios.create({
-  baseURL: baseUrl + "account/",
-  timeout: 3000,
-  withCredentials: true
-})
 
 let api = Axios.create({
   baseURL: baseUrl + "api/",
@@ -26,38 +21,40 @@ export default new Vuex.Store({
   mutations: {
     setUser(state, user) {
       state.user = user
+    },
+    resetState(state) {
+      //clear the entire state object of user data
+      state.user = {}
     }
   },
   actions: {
-    register({ commit, dispatch }, newUser) {
-      auth.post('register', newUser)
-        .then(res => {
-          commit('setUser', res.data)
-          router.push({ name: 'home' })
-        })
-        .catch(e => {
-          console.log('[registration failed] :', e)
-        })
+    async register({ commit, dispatch }, creds) {
+      try {
+        let user = await AuthService.Register(creds)
+        commit('setUser', user)
+        router.push({ name: "home" })
+      } catch (e) {
+        console.warn(e.message)
+      }
     },
-    authenticate({ commit, dispatch }) {
-      auth.get('authenticate')
-        .then(res => {
-          commit('setUser', res.data)
-          router.push({ name: 'home' })
-        })
-        .catch(e => {
-          console.log('not authenticated')
-        })
+    async login({ commit, dispatch }, creds) {
+      try {
+        let user = await AuthService.Login(creds)
+        commit('setUser', user)
+        router.push({ name: "home" })
+      } catch (e) {
+        console.warn(e.message)
+      }
     },
-    login({ commit, dispatch }, creds) {
-      auth.post('login', creds)
-        .then(res => {
-          commit('setUser', res.data)
-          router.push({ name: 'home' })
-        })
-        .catch(e => {
-          console.log('Login Failed')
-        })
+    async logout({ commit, dispatch }) {
+      try {
+        let success = await AuthService.Logout()
+        if (!success) { }
+        commit('resetState')
+        router.push({ name: "login" })
+      } catch (e) {
+        console.warn(e.message)
+      }
     }
   }
 })

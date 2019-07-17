@@ -2,8 +2,8 @@ using System;
 using System.Data;
 using System.Linq;
 using BCrypt.Net;
-using keepr.Models;
 using Dapper;
+using keepr.Models;
 
 namespace keepr.Repositories
 {
@@ -30,14 +30,14 @@ namespace keepr.Repositories
                 hash
             });
 
-            if (success != 1) { return null; }
+            if (success != 1) { throw new Exception("Invalid Credentials"); }
 
             return new User()
             {
                 Username = creds.Username,
-                Email = creds.Email,
-                Hash = null,
-                Id = id
+                    Email = creds.Email,
+                    Hash = null,
+                    Id = id
             };
         }
 
@@ -47,9 +47,9 @@ namespace keepr.Repositories
             User user = _db.Query<User>(@"
                 SELECT * FROM users WHERE email = @Email
                 ", creds).FirstOrDefault();
-            if (user == null) { return null; }
+            if (user == null) { throw new Exception("Invalid Credentials"); }
             bool validPass = BCrypt.Net.BCrypt.Verify(creds.Password, user.Hash);
-            if (!validPass) { return null; }
+            if (!validPass) { throw new Exception("Invalid Credentials"); }
             user.Hash = null;
             return user;
         }
@@ -59,26 +59,15 @@ namespace keepr.Repositories
             var user = _db.Query<User>(@"
       SELECT * FROM users WHERE id = @id
       ", new { id }).FirstOrDefault();
-            if (user != null)
-            {
-                user.Hash = null;
-            }
+            if (user == null) { throw new Exception("Invalid UserId"); }
+            user.Hash = null;
             return user;
         }
-
-
-        //Update   u
-        //CHANGE PASS u
-        //DELETE   D
-
-
 
         public UserRepository(IDbConnection db)
         {
             _db = db;
         }
-
-
 
     }
 }

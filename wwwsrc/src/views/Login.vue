@@ -21,10 +21,6 @@
 <script>
     export default {
         name: "login",
-        mounted() {
-            //checks for valid session
-            this.$store.dispatch("authenticate");
-        },
         data() {
             return {
                 loginForm: true,
@@ -38,6 +34,11 @@
                     username: ""
                 }
             };
+        },
+        beforeCreate(){
+            if(this.$store.state.user.id){
+                this.$router.push({name: "home"})
+            }
         },
         methods: {
             register() {

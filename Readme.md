@@ -22,7 +22,8 @@ The main goal here is to get users logging in and creating public posts (keeps).
 
 Users will be allowed to create vaults where they can organize the posts of other users so they can recall the keeps they enjoy by looking at that paticular vault. 
 
-> Remember that a single user can have many vaults but each vault will only belong to a single user.
+> Remember that a single user can have many vaults but each vault will only belong to a single user. **Due to the privacy of our users Vaults may only be retrieved by  the user who created the vault.**
+
 Also a vault has many keeps and keeps could have many vaults but only one author or user... 
 
 Also to make things more simplistic once a keep is marked public it can no longer be deleted.
@@ -33,7 +34,7 @@ Also to make things more simplistic once a keep is marked public it can no longe
 Once you get to the point where users can create vaults its time to put them to work. Users need a simple way to add a paticular keep to the vault of their choice while browsing. Also to give users some credit for creating excellent keeps lets keep track of the number of times a keep has been added to any vault. We also want to keep track of the number of views each keep gets.
  
 ### Step 3 - Prettify
-What this site is already pretty if you follow the mocks :wink: Make sure the features you add are attactive.
+What this site is already pretty if you follow the mocks :wink: Make sure the features you add are attractive.
 
 
 ### BONUS Ideas - Sharing the fun
@@ -42,22 +43,23 @@ What this site is already pretty if you follow the mocks :wink: Make sure the fe
 - When a user clicks the share icon they should be able to post that share to the various social medias (Facebook, Twitter, ect) 
 
 ## Requirements
-  #### Visualization: 
-	- Visitors can see all public keeps (login not required)
-	- Anytime a `keep` is viewed or `kept in a vault` the relevant count should go up
-	- Users have a dashboard to see all their keeps and vaults
-	- Users can only see vaults they created
-	- Users can View all the keeps in a given vault
-	- Keeps show the three clicable buttons (View, Keep, Share) with affect each of the counts
- #### Functionality:
-	- Users can: 
-		- Register and login 
-		- Be automatically logged on page refresh
-		- Create and Delete Keeps
-		- Create and Delete Vaults
-		- Only Delete things they created
-		- Add Keeps to Vaults
-		- Remove Keeps from Vaults
+
+#### Visualization: 
+- Visitors can see all public keeps (login not required)
+- Anytime a `keep` is viewed or `kept in a vault` the relevant count should go up
+- Users have a dashboard to see all their keeps and vaults
+- Users can only see vaults they created
+- Users can View all the keeps in a given vault
+- Keeps show the three clicable buttons (View, Keep, Share) with affect each of the counts
+
+#### Functionality:
+- Users can: 
+	- Register, login and be automatically logged on page refresh
+	- Create and Delete Keeps
+	- Create and Delete Vaults
+	- Only Delete **things they created**
+	- Add Keeps to Vaults
+	- Remove Keeps from Vaults
 
 
 ### Deployment Time
@@ -65,10 +67,10 @@ When you are ready to push you site live you can simply run the `npm run build` 
 
 This process will take your files from the **wwwsrc** directory and will minify them and put the minified files into your **wwwroot** directory
 
-This happens because of a change to the **www/config/index.js** changing the build paths to match the path to root as opposed to the default 'dist' file
+This happens because of the config settings in  **wwwsrc/vue.config.js** changing the build paths to match the path to wwwroot as opposed to the default 'dist' folder
 
 ### Finished?
-> We only grade the BUILT project. Make sure you test it. When You are finished submit your project to the gradebook
+> We only grade the BUILT project. Make sure you test it. When You are finished submit your project to the gradebook and notify your instructor
 
 ### Some inspirational mocks
 

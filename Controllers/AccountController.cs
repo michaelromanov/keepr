@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using keepr.Models;
 using keepr.Repositories;
@@ -21,48 +22,72 @@ namespace Keepr.Controllers
         }
 
         [HttpPost("Register")]
-        public async Task<User> Register([FromBody]UserRegistration creds)
+        public async Task<ActionResult<User>> Register([FromBody] UserRegistration creds)
         {
-            try{
+            try
+            {
                 User user = _repo.Register(creds);
-                if (user == null) { BadRequest("Invalid Credentials"); }
+                if (user == null) { Unauthorized("Invalid Credentials"); }
                 user.SetClaims();
                 await HttpContext.SignInAsync(user._principal);
-                return user;
-            }catch(Exception e){
-                 return Unauthorized(e);
+                return Ok(user);
+            }
+            catch (Exception e)
+            {
+                return Unauthorized(e.Message);
             }
         }
 
         [HttpPost("Login")]
-        public async Task<ActionResult<User>> Login([FromBody]UserLogin creds)
+        public async Task<ActionResult<User>> Login([FromBody] UserLogin creds)
         {
-            try{
+            try
+            {
                 User user = _repo.Login(creds);
                 if (user == null) { Unauthorized("Invalid Credentials"); }
                 user.SetClaims();
                 await HttpContext.SignInAsync(user._principal);
-                return user;
-            }catch(Exception e){
-                 return Unauthorized(e);
+                return Ok(user);
+            }
+            catch (Exception e)
+            {
+                return Unauthorized(e.Message);
             }
         }
 
-
+        [Authorize]
         [HttpDelete("Logout")]
         public async Task<ActionResult<bool>> Logout()
         {
-            await HttpContext.SignOutAsync();
-            return Ok(true);
+            try
+            {
+                await HttpContext.SignOutAsync();
+                return Ok(true);
+            }
+            catch (Exception e)
+            {
+                return Unauthorized(e.Message);
+            }
         }
 
-
-        [Authorize]
+        [Authorize] // Only Authenticated users will be allowed into this method
         [HttpGet("Authenticate")]
-        public ActionResult<User> Authenticate()
+        public async Task<ActionResult<User>> Authenticate()
         {
-            var id = HttpContext.User.Identity.Name;
-            return Ok(_repo.GetUserById(id));
+            try
+            {
+                var id = HttpContext.User.FindFirstValue("Id"); // THIS IS HOW YOU GET THE ID of the currently logged in user
+                var user = _repo.GetUserById(id);
+                if (user == null) { 
+                    await HttpContext.SignOutAsync();
+                    throw new Exception("User not logged In"); 
+                }
+                return Ok(user);
+            }
+            catch (Exception e)
+            {
+                return Unauthorized(e.Message);
+            }
         }
     }
 }
