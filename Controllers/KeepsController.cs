@@ -1,3 +1,11 @@
+using System;
+using System.Collections.Generic;
+using keepr.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using keepr.Repositories;
+using System.Security.Claims;
+
 namespace keepr.Controllers
 {
     [Route("api/controller")]
@@ -5,14 +13,12 @@ namespace keepr.Controllers
 
     public class KeepsController : ControllerBase
     {
-
-
-        private readonly KeepRepository _repo;
-        public KeepsController(KeepRepository repo)
+        private readonly KeepsRepository _repo;
+        public KeepsController(KeepsRepository repo)
         {
             _repo = repo;
         }
-
+      
         //Get All
         [HttpGet]
         public ActionResult<IEnumerable<Keep>> Get()
@@ -28,6 +34,7 @@ namespace keepr.Controllers
         }
 
         // Get One - usually by ID
+        [Authorize]
         [HttpGet("{id}")]
         public ActionResult<Keep> Get(int id)
         {
@@ -42,6 +49,7 @@ namespace keepr.Controllers
         }
 
         //Create One
+        [Authorize]
         [HttpPost]
         public ActionResult<Keep> Post([FromBody] Keep value)
         {
@@ -56,12 +64,14 @@ namespace keepr.Controllers
         }
 
         //Edit One
+        [Authorize]
         [HttpPut("{id}")]
-        public ActionResult<Keep> Put(int id, [FromBody] Keep value)
+        public ActionResult<Keep> Put( [FromBody] Keep value)
         {
             try
             {
-                value.Id = id;
+                var id = HttpContext.User.FindFirstValue("Id");
+                value.UserId = id;
                 return Ok(_repo.FindById(id));
             }
             catch (Exception e)
@@ -71,6 +81,7 @@ namespace keepr.Controllers
         }
 
         //Delete one
+        [Authorize]
         [HttpDelete("{id}")]
         public ActionResult <string> Delete(int id)
         {
@@ -86,9 +97,6 @@ namespace keepr.Controllers
     }
 
 }
-
-
-
 
 
 
