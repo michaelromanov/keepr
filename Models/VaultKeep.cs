@@ -13,7 +13,7 @@ namespace keepr.Models
 // -- CREATE TABLE vaultkeeps (
 // --     id int NOT NULL AUTO_INCREMENT,
 // --     vaultId int NOT NULL,
-// --     keepId int NOT NULL,
+// --     keepId int NOT NULL, 
 // --     userId VARCHAR(255) NOT NULL,
 
 // --     PRIMARY KEY (id),
