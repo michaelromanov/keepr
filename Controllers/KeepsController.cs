@@ -36,7 +36,7 @@ namespace keepr.Controllers
         // Get One - usually by ID
         [Authorize]
         [HttpGet("{id}")]
-        public ActionResult<Keep> Get(int id)
+        public ActionResult<Keep> Get(string id)
         {
             try
             {
@@ -94,6 +94,11 @@ namespace keepr.Controllers
                return BadRequest(e);
            }
         }
+
+        //Update One
+        [Authorize]
+
+
     }
 
 }
