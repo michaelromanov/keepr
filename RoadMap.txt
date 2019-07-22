@@ -1,0 +1,87 @@
+Login:
+fake
+fake@fake.com
+student
+
+fake2
+fake2@fake.com
+student2
+
+Transient service service leads to repository - make sure it is set up. 
+
+
+Principles of OOP - Encapsulation, Abstraction, Inheritance, Plymorphism
+SOLID - Single Use, Open closed, Liskov, Interface Segregation, Dependency Inversion
+
+
+
+Start with building out the Model Folder and the model.cs name for that singular model like Knight.cs
+Inside the Knight.cs model, start with the namespace to contain everything.
+
+Once the models folder is built, build out the controller folder for the basic controller for the knights and the quests 
+models that have already been created.
+The controller handles and accepts http requests from the client.
+
+Project Notes: 
+Backend
+Keep is a pin
+Vault is a board
+
+Quests, Knights, AssignedQuests
+Knights - Keeps and Quests - Vault have to be created first then Assigned Quests 
+
+Many to Many
+We already have User so models will need corresponding controllers to deal with http requests for:
+User - already done by Mark / Jake
+Keep - a pin
+Vault - a board
+Base - of all things
+
+
+Repositories?
+The repository is responsible for querying the database and writing information to the database
+Create a Repository - establish an IDBConnection, Register our Repository connect with startup.cs
+The repository talks to the database and issues the basic crud operations that we want to perform 
+against the database.
+The repository is all about connecting and instructing the db, it should not be involved in 
+logic operations.  Logic operations is for the service layer.
+
+Connect Controller to Service, Service to Repository, and Repository uses its Idb connection to talk to the 
+database.
+
+
+Keeps dont feed into the vaults aka pins dont feed into boards - pizza shack?
+If a keep is viewed, add a counter for it - edit via CRUD post get put delete - in this case put will edit it
+Will need a vue for boards 
+Add Transient from all respoitories into startup.cs
+That may include ItemRepository and ItemService such as:
+services.AddTransient<KnightsRepository>();
+serviecs.AddTransient<KnightsService>();
+services.AddTransient<QuestsRepository>();
+serviecs.AddTransient<QuestService>();
+
+
+
+
+
+Frontend
+Kanban for ideas
+Vue
+
+
+Design comes last
+
+
+Jake's Breadcrumbs
+Pizza Shack:
+We accept an order object from the client an order request, and from that we build an order object,
+so we decide what an order request is and build the order object in response.
+1) Build out the request class - we will not save the whole request into the database, just the order
+results will come into the database.  we will put that result into the orders model as the helper class 
+aka the OrderRequest.  
+ 
+
+
+
+Knight:
+
