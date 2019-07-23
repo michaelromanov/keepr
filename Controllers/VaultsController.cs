@@ -36,20 +36,19 @@ namespace keepr.Controllers
             }
         }
         
-        [Authorize]
-        [HttpGet("user")]
-        public ActionResult<IEnumerable<Vault>> FindVaultsByUserId()
-        {
+        [HttpGet]
+        public ActionResult<IEnumerable<Vault>> Get()
+        {   
             try
             {
-                var id = HttpContext.User.FindFirstValue("Id");
-                return Ok(_repo.FindVaultsByUserId(id));
+                return Ok(_repo.GetAll());
             }
             catch (Exception e)
             {
                 return BadRequest(e.Message);
             }
         }
+
          
         [HttpGet("{id}")]
         public ActionResult<Vault> Get(int id)
