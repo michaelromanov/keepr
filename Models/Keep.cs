@@ -3,15 +3,15 @@ namespace keepr.Models
     public class Keep
     {
         // Follow (in sequential order) the tests in createtable keeps in db-setup.sql 
-        public int Id {get; set;}
-        public string Name {get; set;}
-        public string Description {get; set;}
-        public string UserId {get; set;}
-        public string Img {get; set;}
-        public bool IsPrivate {get; set;}
-        public int Views {get; set;}
-        public int Shares {get; set;}
-        public int Keeps {get; set;}
+        public int id {get; set;}
+        public string name {get; set;}
+        public string description {get; set;}
+        public string userId {get; set;}
+        public string img {get; set;}
+        public bool isPrivate {get; set;}
+        public int views {get; set;}
+        public int shares {get; set;}
+        public int keeps {get; set;}
 
     }
 }

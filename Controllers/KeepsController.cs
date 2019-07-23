@@ -8,7 +8,7 @@ using System.Security.Claims;
 
 namespace keepr.Controllers
 {
-    [Route("api/controller")]
+    [Route("api/[controller]")]
     [ApiController]
 
     public class KeepsController : ControllerBase
@@ -19,6 +19,25 @@ namespace keepr.Controllers
             _repo = repo;
         }
       
+        //In Cascading Order: 
+
+        //Create One
+        [Authorize]
+        [HttpPost]
+        public ActionResult<Keep> Post([FromBody] Keep value)
+        {
+            try
+            {
+                var id = HttpContext.User.FindFirstValue("Id");
+                value.userId = id;
+                return Ok(_repo.Create(value));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         //Get All
         [HttpGet]
         public ActionResult<IEnumerable<Keep>> Get()
@@ -29,14 +48,30 @@ namespace keepr.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(e);
+                return BadRequest(e.Message);
             }
         }
 
-        // Get One - usually by ID
+        // Get Keeps by User
         [Authorize]
+        [HttpGet("user")]
+        public ActionResult<IEnumerable<Keep>> FindKeepsByUserId()
+        {
+            try
+            {
+                var id = HttpContext.User.FindFirstValue("Id");
+                return Ok(_repo.FindKeepsByUserId(id));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        // Get One - by KeepID
+        
         [HttpGet("{id}")]
-        public ActionResult<Keep> Get(string id)
+        public ActionResult<Keep> Get(int id)
         {
             try
             {
@@ -44,39 +79,23 @@ namespace keepr.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(e);
-            }
-        }
-
-        //Create One
-        [Authorize]
-        [HttpPost]
-        public ActionResult<Keep> Post([FromBody] Keep value)
-        {
-            try
-            {
-                return Ok(_repo.Create(value));
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e);
+                return BadRequest(e.Message);
             }
         }
 
         //Edit One
         [Authorize]
         [HttpPut("{id}")]
-        public ActionResult<Keep> Put( [FromBody] Keep value)
+        public ActionResult<Keep> Put(int id, [FromBody] Keep value)
         {
             try
             {
-                var id = HttpContext.User.FindFirstValue("Id");
-                value.UserId = id;
-                return Ok(_repo.FindById(id));
+                value.userId = HttpContext.User.FindFirstValue("Id");
+                return Ok(_repo.Update(value));
             }
             catch (Exception e)
             {
-                return BadRequest(e);
+                return BadRequest(e.Message);
             }
         }
 
@@ -91,19 +110,16 @@ namespace keepr.Controllers
            }
            catch (Exception e)
            {
-               return BadRequest(e);
+               return BadRequest(e.Message);
            }
         }
-
-        //Update One
-        [Authorize]
-
-
     }
-
 }
 
 
+        // Get Keeps by User - /keeps/user returns all keeps from user
+        //Pull from the forced enumerable list and find the first value using FindFirst
+        //ctrl . to generate method in KeepsRepository
 
 
     //   // Get One - usually by ID
@@ -126,4 +142,19 @@ namespace keepr.Controllers
         // public AccountController(UserRepository repo)
         // {
         //     _repo = repo;
+        // }
+
+                // // Get One - usually by ID
+        // [Authorize]
+        // [HttpGet("user/{userId}")]
+        // public ActionResult<Keep> Get(string userId)
+        // {
+        //     try
+        //     {
+        //         return Ok(_repo.FindByUserId(userId));
+        //     }
+        //     catch (Exception e)
+        //     {
+        //         return BadRequest(e.Message);
+        //     }
         // }
