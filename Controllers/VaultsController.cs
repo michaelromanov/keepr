@@ -49,7 +49,7 @@ namespace keepr.Controllers
             }
         }
 
-         
+        [Authorize]
         [HttpGet("{id}")]
         public ActionResult<Vault> Get(int id)
         {

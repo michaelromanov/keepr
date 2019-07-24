@@ -38,7 +38,7 @@ namespace keepr.Repositories
 
         public Vault FindById(int id)
         {
-            string query = "SELECT * FROM keeps WHERE id = @id";
+            string query = "SELECT * FROM vaults WHERE id = @id";
             Vault data = _db.QueryFirstOrDefault<Vault>(query, new { id });
             if (data == null) throw new Exception("Invalid ID, Try Once More User");
             return data;
@@ -46,7 +46,7 @@ namespace keepr.Repositories
 
         public string Delete(int id)
         {
-            string query = "DELETE FROM keeps WHERE id = @id;";
+            string query = "DELETE FROM vaults WHERE id = @id;";
             int changedRows = _db.Execute(query, new {id});
             if (changedRows < 1) throw new Exception("Invalid Id Try Again If You Please");
             return "Successfully Deleted The Keep You Requested";

@@ -8,7 +8,7 @@ namespace keepr.Models
         public string UserId {get; set;}
     }
 
-    public class VaultKeep 
+    public class VaultKeeps 
     {
         public int Id { get; set; }
         public int VaultId { get; set; }
