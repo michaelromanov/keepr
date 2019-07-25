@@ -5,6 +5,8 @@
             <input type="text" v-model="newkeep.description" placeholder="description">
             <input type="text" v-model="newkeep.img" placeholder="url">
             <button class="btn btn-primary" type="submit">Create New Friend</button>
+            <input type="checkbox" v-model="newkeep.isPrivate" v-bind:value="true">Privatize!
+
         </form>
     </div>
 </template>
@@ -17,7 +19,8 @@ data() {
         newkeep: {
             name: '', 
             decription: '', 
-            img: ''
+            img: '', 
+            isPrivate: false
         }
     }
 }, 

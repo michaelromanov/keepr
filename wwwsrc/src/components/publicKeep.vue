@@ -10,7 +10,6 @@
                 
                 </div>
             </div>
-        
     </div>
 </template>
 
@@ -24,14 +23,18 @@ data() {
 }, 
 computed: {
     keeps() {
-        return this.$store.state.keeps
+        return this.$store.state.publicKeeps
     }
-    //vaults() {return this.$store.vaults} ?Vaults go here?
+    
+},
+mounted() {
+    this.$store.dispatch("getPublicKeeps")
 },
 
-    methods: {
-        
-    } 
+methods: {
+        //no delete public keeps
+        // adds etc
+} 
 }
 </script>
 

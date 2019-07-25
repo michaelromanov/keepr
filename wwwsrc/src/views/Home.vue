@@ -6,8 +6,16 @@
              <button v-if="user.id" @click="logout">logout</button>
              <router-link v-else :to="{name: 'login'}">Login</router-link>
         </div>
+        <h3>
+          My Private Friend(s) Keeps
+        </h3>
         <user-keep /> 
         <new-keep />
+        <h3>
+          Public Keeps
+        </h3>
+        <public-keep />
+
         </div>
   </div>
 </template>

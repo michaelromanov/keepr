@@ -18,7 +18,7 @@ export default new Vuex.Store({
   state: {
     user: {},
     keeps: [],
-    publicKeep: [],
+    publicKeeps: [],
 
 
     vaults:[],
@@ -46,10 +46,10 @@ export default new Vuex.Store({
     setVaultKeep(state, data) {
 
     }, 
-    setpublicKeep(state, data) {
-
+    setPublicKeeps(state, data) {
+      state.publicKeeps = data
     },
-    setuserKeep(state, data){
+    setUserKeep(state, data){
 
     }, 
 
@@ -96,6 +96,15 @@ export default new Vuex.Store({
         {console.log(error)}
       },
 
+      async getPublicKeeps({commit, dispatch}){
+        try {
+          let res = await api.get('keeps')
+          commit('setPublicKeeps', res.data)
+        } catch (error) {
+          {console.log(error)}
+        }
+      },
+
       createKeep({commit, dispatch}, payload){
         api.post("keeps", payload)
         .then(res => {
@@ -110,20 +119,6 @@ export default new Vuex.Store({
         })
       }, 
 
-      updateKeep({commit, dispatch}, payload){
-        api.edit("keeps/" + payload.id, payload)
-        .then(res=> {
-          dispatch("getPublicKeep")
-        })
-      }, 
-
-      getPublicKeep({commit, dispatch}){
-        api.get('keeps')
-        .then(res => {
-          commit('setPublicKeep')
-        })
-      }
-
 
     //#region VaultKeeps - getVaultKeeps, addVaultKeep, deleteVaultKeep
 
@@ -134,3 +129,12 @@ export default new Vuex.Store({
   }
 })
 
+
+
+
+   // updateKeep({commit, dispatch}, payload){
+      //   api.put("keeps/" + payload.id, payload)
+      //   .then(res=> {
+      //     dispatch("getPublicKeep")
+      //   })
+      // }, 
