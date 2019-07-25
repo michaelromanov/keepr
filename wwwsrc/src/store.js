@@ -108,6 +108,20 @@ export default new Vuex.Store({
         .then(res => {
           dispatch("getUserKeeps")
         })
+      }, 
+
+      updateKeep({commit, dispatch}, payload){
+        api.edit("keeps/" + payload.id, payload)
+        .then(res=> {
+          dispatch("getPublicKeep")
+        })
+      }, 
+
+      getPublicKeep({commit, dispatch}){
+        api.get('keeps')
+        .then(res => {
+          commit('setPublicKeep')
+        })
       }
 
 
