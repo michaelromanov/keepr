@@ -86,7 +86,7 @@ export default new Vuex.Store({
         console.warn(e.message)
       }
     },
-    //#region Keeps - drawUserKeep, createUKeep, deleteUKeep, updateUKeep, 
+    //#region Keeps - getUserKeep, createUKeep, deleteUKeep, updateUKeep, 
     
       async getUserKeep({commit, dispatch}){
         try {
@@ -98,10 +98,10 @@ export default new Vuex.Store({
       },
 
 
-    //#region VaultKeeps - drawVaultKeeps, addVaultKeep, deleteVaultKeep
+    //#region VaultKeeps - getVaultKeeps, addVaultKeep, deleteVaultKeep
 
 
-    //#region Vault - drawVaults, drawVault, createVault, deleteVault
+    //#region Vault - getVaults, drawVault, createVault, deleteVault
 
     
   }

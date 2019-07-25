@@ -11,38 +11,32 @@
         <!-- If logged in: 
         <button v-if="user.id" @click="logout">User</button>
         <v-if=user.id == true>
+
+        -->
         <userKeep /> 
         <newKeep />
-        -->
+
     <div>
   </div>
 </template>
 
 <script>
-    //Make sure to import all keeps from components! kanban uses @/ not ./
-    import userKeep from '@/components/userKeep.vue' //
+    import userKeep from '@/components/userKeep.vue' 
     import newKeep from '@/components/newKeep.vue' 
     import publicKeep from '@/components/publicKeep.vue'
-
+    //Make sure to import all keeps from components! kanban uses @/ not ./
 export default {
   mounted() {
-  this.$store.dispatch('drawPublicKeeps');
-  //public keeps load first, then userkeeps? Has to be handled in template
-  // 
+  this.$store.dispatch('getpublickeeps');
+  this.$store.dispatch('getuserkeeps');
+   //public keeps load first, then userkeeps.. handle in template
   },
   name: "home",
-  data(){
-
-  },
   computed: {
     user() {
       return this.$store.state.user; //Leave alone
-    },
-    // keeps() {
-    //   return this.$store.state.keeps;  // 
-    // }
+    }
   },
-
   methods: {
     logout() {
       this.$store.dispatch("logout");//Leave alone
@@ -52,17 +46,14 @@ export default {
 </script>
 
 
-<!-- Reference: -->
+<!-- Reference Card: -->
  <!-- <div class="card" style="width: 18rem;" v-for="char in marioChar" :key="char.name">
       <img :src="char.img"  class="card-img-top" alt="..." />
       <div class="card-body">
         <h5 class="card-title">{{char.name}}</h5>
         <p class="card-text"
         >{{char.description}}</p>
-        <a
-          :href="char.wiki"
-          class="btn btn-primary" 
-        >Wiki</a>
+        <a:href="char.wiki" class="btn btn-primary">Wiki</a>
       </div>
     </div> -->
 
