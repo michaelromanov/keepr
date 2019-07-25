@@ -1,3 +1,24 @@
+Backend is live, execute on Vue.
+Todos:
+1) Make sure all files linked inside of the Home.vue - why is the . not working?
+2) Load public keeps into Home then if logged in, loop over user keeps?
+
+
+
+Corrections in the Code: 
+1) Corrected the link rel=icon href it had a < in it.
+
+
+
+
+
+
+
+
+
+
+
+
 Login:
 fake
 fake@fake.com
@@ -60,17 +81,11 @@ serviecs.AddTransient<KnightsService>();
 services.AddTransient<QuestsRepository>();
 serviecs.AddTransient<QuestService>();
 
-
-
-
-
 Frontend
 Kanban for ideas
 Vue
 
-
 Design comes last
-
 
 Jake's Breadcrumbs
 Pizza Shack:
@@ -80,8 +95,5 @@ so we decide what an order request is and build the order object in response.
 results will come into the database.  we will put that result into the orders model as the helper class 
 aka the OrderRequest.  
  
-
-
-
 Knight:
 

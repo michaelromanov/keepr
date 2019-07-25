@@ -5,7 +5,7 @@ import router from './router'
 import AuthService from './AuthService'
 
 Vue.use(Vuex)
-
+//Allows axios to work locally or live
 let baseUrl = location.host.includes('localhost') ? '//localhost:5000/' : '/'
 
 let api = Axios.create({
@@ -17,7 +17,21 @@ let api = Axios.create({
 export default new Vuex.Store({
   state: {
     user: {},
-    keeps: []
+    keeps: [],
+    newKeep: [],
+
+    vaults:[],
+    vault:{}
+
+
+    
+    // boards: [],
+    // lists: [],
+    // tasks: {},
+    // activeUser: {},
+    // activeList: [],
+    // activeTask: [],
+    // activeBoard: {}
   },
   mutations: {
     setUser(state, user) {
@@ -27,9 +41,21 @@ export default new Vuex.Store({
       //clear the entire state object of user data
       state.user = {}
     },
-    setKeeps(state, keeps) {
-      state.user = keeps;
+    // setKeep(state, keeps) {
+    //   state.user = keeps or use data ; // Follow this template for vaults and remaining keeps
+    // },
+    setVaultKeep(state, data) {
+
+    }, 
+    setpublicKeep(state, data) {
+
     },
+    setuserKeep(state, data){
+
+    }, 
+
+
+
   },
   actions: {
     async register({ commit, dispatch }, creds) {
@@ -60,15 +86,24 @@ export default new Vuex.Store({
         console.warn(e.message)
       }
     },
-    getKeeps({dispatch, commit}) {
-      api.get('keeps')
-      .then(res => {
-        commit('setKeeps', res.data);
-        console.log('get all keeps output', res);
-      })
-      .catch(err => {
-        console.error(err)
-      })
-    }
+    //#region Keeps - drawUserKeep, createUKeep, deleteUKeep, updateUKeep, 
+    
+      async getUserKeep({commit, dispatch}){
+        try {
+          let res = await api.get('keeps/user')
+          commit('set', res.data)
+        }
+        catch(error)
+        {console.log(error)}
+      },
+
+
+    //#region VaultKeeps - drawVaultKeeps, addVaultKeep, deleteVaultKeep
+
+
+    //#region Vault - drawVaults, drawVault, createVault, deleteVault
+
+    
   }
 })
+
