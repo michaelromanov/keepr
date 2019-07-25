@@ -18,12 +18,11 @@ export default new Vuex.Store({
   state: {
     user: {},
     keeps: [],
-    newKeep: [],
+    publicKeep: [],
+
 
     vaults:[],
     vault:{}
-
-
     
     // boards: [],
     // lists: [],
@@ -41,9 +40,9 @@ export default new Vuex.Store({
       //clear the entire state object of user data
       state.user = {}
     },
-    // setKeep(state, keeps) {
-    //   state.user = keeps or use data ; // Follow this template for vaults and remaining keeps
-    // },
+    setKeeps(state, data) {
+      state.keeps = data ; // Follow this template for vaults and remaining keeps
+    },
     setVaultKeep(state, data) {
 
     }, 
@@ -88,14 +87,28 @@ export default new Vuex.Store({
     },
     //#region Keeps - getUserKeep, createUKeep, deleteUKeep, updateUKeep, 
     
-      async getUserKeep({commit, dispatch}){
+      async getUserKeeps({commit, dispatch}){
         try {
           let res = await api.get('keeps/user')
-          commit('set', res.data)
+          commit('setKeeps', res.data)
         }
         catch(error)
         {console.log(error)}
       },
+
+      createKeep({commit, dispatch}, payload){
+        api.post("keeps", payload)
+        .then(res => {
+          dispatch("getUserKeeps")
+        })
+      }, 
+
+      deleteKeep({commit, dispatch}, payload){
+        api.delete("keeps/" + payload)
+        .then(res => {
+          dispatch("getUserKeeps")
+        })
+      }
 
 
     //#region VaultKeeps - getVaultKeeps, addVaultKeep, deleteVaultKeep

@@ -24,10 +24,6 @@ fake
 fake@fake.com
 student
 
-fake2
-fake2@fake.com
-student2
-
 Transient service service leads to repository - make sure it is set up. 
 
 

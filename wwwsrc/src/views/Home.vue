@@ -2,21 +2,13 @@
   <div class="home container-fluid">
     <div class="row">
         <div class="col-12 mb3">
-             <h1>Hello {{user.username}}, Welcome To The Grid</h1>
+             <h1>Hello {{user.username}}, Welcome To The Friend Finder</h1>
              <button v-if="user.id" @click="logout">logout</button>
              <router-link v-else :to="{name: 'login'}">Login</router-link>
-             <!-- -->
-        <div>
-
-        <!-- If logged in: 
-        <button v-if="user.id" @click="logout">User</button>
-        <v-if=user.id == true>
-
-        -->
-        <userKeep /> 
-        <newKeep />
-
-    <div>
+        </div>
+        <user-keep /> 
+        <new-keep />
+        </div>
   </div>
 </template>
 
@@ -24,22 +16,21 @@
     import userKeep from '@/components/userKeep.vue' 
     import newKeep from '@/components/newKeep.vue' 
     import publicKeep from '@/components/publicKeep.vue'
-    //Make sure to import all keeps from components! kanban uses @/ not ./
 export default {
-  mounted() {
-  this.$store.dispatch('getpublickeeps');
-  this.$store.dispatch('getuserkeeps');
-   //public keeps load first, then userkeeps.. handle in template
-  },
   name: "home",
+  components: {
+    userKeep, 
+    newKeep,
+    publicKeep
+  },
   computed: {
     user() {
-      return this.$store.state.user; //Leave alone
+      return this.$store.state.user; 
     }
   },
   methods: {
     logout() {
-      this.$store.dispatch("logout");//Leave alone
+      this.$store.dispatch("logout");
     }
   }
 };

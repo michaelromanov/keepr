@@ -9,7 +9,7 @@ export default {
     mounted() {
         this.$store.dispatch("getVaults")
         //get all vaults
-    }
+    },
     data(){
         return {
 
