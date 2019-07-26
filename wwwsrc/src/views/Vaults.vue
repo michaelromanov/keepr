@@ -52,6 +52,7 @@ export default {
         }, 
         enterVault(id){
             this.$store.dispatch("getVault", id) 
+            this.$store.dispatch("getVaultKeeps", id) 
         }, 
         deleteVault(id) {
             this.$store.dispatch("deleteVault", id)
