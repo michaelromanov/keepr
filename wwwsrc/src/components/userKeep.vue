@@ -6,7 +6,6 @@
             <h5 class="card-title">{{keep.name}}</h5>
             <p class="card-text">{{keep.description}}</p>
             <button class="btn btn-danger" @click="deleteKeep(keep.id)">delete me</button>
-
         </div>
         </div> 
     </div>

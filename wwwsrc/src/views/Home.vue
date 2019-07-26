@@ -5,6 +5,7 @@
              <h1>Hello {{user.username}}, Welcome To The Friend Finder</h1>
              <button v-if="user.id" @click="logout">logout</button>
              <router-link v-else :to="{name: 'login'}">Login</router-link>
+             <router-link v-if="user.id" :to="{name: 'vaults'}">Route to Vault</router-link>
         </div>
         <h3>
           My Private Friend(s) Keeps
@@ -14,7 +15,7 @@
         <h3>
           Public Keeps
         </h3>
-        <public-keep />
+        <public-keep /> 
 
         </div>
   </div>

@@ -52,6 +52,9 @@ export default new Vuex.Store({
     setUserKeep(state, data){
 
     }, 
+    setVaults(state, data){
+      state.vaults = data
+    }
 
 
 
@@ -122,7 +125,26 @@ export default new Vuex.Store({
 
     //#region VaultKeeps - getVaultKeeps, addVaultKeep, deleteVaultKeep
 
-
+    createVault({commit, dispatch}, payload){
+      api.post("vaults", payload)
+      .then(res => {
+        dispatch("getUserVaults")
+      })
+    }, 
+    async getUserVaults({commit, dispatch}){
+      try {
+        let res = await api.get('vaults')
+        commit('setVaults', res.data)
+      }
+      catch(error)
+      {console.log(error)}
+    },
+    deleteVault({commit, dispatch}, payload){
+      api.delete("vaults/" + payload)
+      .then(res => {
+        dispatch("getUserVaults")
+      })
+    }
     //#region Vault - getVaults, drawVault, createVault, deleteVault
 
     
