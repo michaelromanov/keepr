@@ -26,6 +26,7 @@ data() {
 }, 
 methods: {
     createKeep(){
+        debugger
         this.$store.dispatch("createKeep", this.newkeep)
     }
 }

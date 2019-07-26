@@ -10,6 +10,7 @@
         <div class="card-body">
             <h5 class="card-title">{{vault.name}}</h5>
             <p class="card-text">{{vault.description}}</p>
+             <button class="btn btn-success" @click="enterVault(vault.id)">enterVault</button>
             <button class="btn btn-danger" @click="deleteVault(vault.id)">delete me</button>
         </div>
         </div>
@@ -18,7 +19,7 @@
 </template>
 
 <script>
-    import userVault from '@/components/userVault.vue'
+    
 export default {
     name: 'Vaults', 
     mounted() {
@@ -43,11 +44,14 @@ export default {
         }
     }, 
     components: {
-        userVault 
+        
     }, 
     methods: {
         createVault() {
             this.$store.dispatch("createVault", this.newVault)
+        }, 
+        enterVault(id){
+            this.$store.dispatch("getVault", id) 
         }, 
         deleteVault(id) {
             this.$store.dispatch("deleteVault", id)

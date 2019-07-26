@@ -2,10 +2,10 @@
     <div>
         <div class="card" style="width: 18rem;" v-for="keep in keeps" :key="keep.id">
             <img :src="keep.img"  class="card-img-top" alt="..." />
-        <div class="card-body">
+         <div class="card-body">
             <h5 class="card-title">{{keep.name}}</h5>
             <p class="card-text">{{keep.description}}</p>
-            <button class="btn btn-danger" @click="deleteKeep(keep.id)">delete me</button>
+            <button class="btn btn-danger" @click="deleteKeep(keep.id)" v-show="keep.isPrivate == true">delete me</button>
         </div>
         </div> 
     </div>
@@ -45,5 +45,4 @@ body {
   overflow: auto;
   padding: 0 2rem;
 }
-
 </style>

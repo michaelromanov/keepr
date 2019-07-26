@@ -1,19 +1,20 @@
 <template>
-  <div class="home container-fluid">
+  <div class="home container">
     <div class="row">
         <div class="col-12 mb3">
-             <h1>Hello {{user.username}}, Welcome To The Friend Finder</h1>
+             <h1>Hello {{user.username}}, Welcome To The Gallery</h1>
              <button v-if="user.id" @click="logout">logout</button>
              <router-link v-else :to="{name: 'login'}">Login</router-link>
              <router-link v-if="user.id" :to="{name: 'vaults'}">Route to Vault</router-link>
         </div>
         <h3>
-          My Private Friend(s) Keeps
+          Private Img's
         </h3>
         <user-keep /> 
         <new-keep />
+        <br>
         <h3>
-          Public Keeps
+          Public Img's
         </h3>
         <public-keep /> 
 
@@ -46,5 +47,6 @@ export default {
 </script>
 
 <style scoped>
+
 
 </style>

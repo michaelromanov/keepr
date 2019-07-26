@@ -1,24 +1,19 @@
+URL's
+Michael m@gmail.com student
+Underdog: https://i.ytimg.com/vi/tEVsRLhet2k/hqdefault.jpg
+Garfield: https://i.pinimg.com/originals/2b/a4/a0/2ba4a0642b80b849ffd2e142dfa015d3.jpg
+Wile E. Coyote: https://i.pinimg.com/736x/93/8f/28/938f28d2036b9d470570125266c41489--animated-cartoons-funny-cartoons.jpg
+Snoopy: https://i.ytimg.com/vi/ledMpUmI36s/maxresdefault.jpg
+Mr Burns: https://static-media.fxx.com/img/FX_Networks_-_FXX/586/671/Simpsons_02_10_P5_640x360_305335875944.jpg
+Homer Simpson: https://www.kcbi.org/wp-content/uploads/2019/03/homer-simpson.jpg
+Bugs Bunny: https://images-na.ssl-images-amazon.com/images/I/41px2OiHkcL.jpg
+
+Problems: 
+Privatize is not working
+
+
+
 Backend is live, execute on Vue.
-Todos:
-1) Make sure all files linked inside of the Home.vue - why is the . not working?
-2) Load public keeps into Home then if logged in, loop over user keeps?
-
-
-
-Corrections in the Code: 
-1) Corrected the link rel=icon href it had a < in it.
-
-
-
-
-
-
-
-
-
-
-
-
 Login:
 fake
 fake@fake.com
@@ -52,7 +47,6 @@ We already have User so models will need corresponding controllers to deal with 
 User - already done by Mark / Jake
 Keep - a pin
 Vault - a board
-Base - of all things
 
 
 Repositories?
@@ -78,20 +72,11 @@ services.AddTransient<QuestsRepository>();
 serviecs.AddTransient<QuestService>();
 
 Frontend
-Kanban for ideas
-Vue
+Kanban 
+BugReport
 
 Design comes last
 
-Jake's Breadcrumbs
-Pizza Shack:
-We accept an order object from the client an order request, and from that we build an order object,
-so we decide what an order request is and build the order object in response.
-1) Build out the request class - we will not save the whole request into the database, just the order
-results will come into the database.  we will put that result into the orders model as the helper class 
-aka the OrderRequest.  
- 
-Knight:
 
 
 <!-- Reference Card: -->

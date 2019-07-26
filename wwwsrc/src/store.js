@@ -18,11 +18,14 @@ export default new Vuex.Store({
   state: {
     user: {},
     keeps: [],
+    keep:{},
     publicKeeps: [],
-
-
+    
     vaults:[],
-    vault:{}
+    vault:{},
+
+    vaultKeeps:[],
+    
     
     // boards: [],
     // lists: [],
@@ -41,21 +44,20 @@ export default new Vuex.Store({
       state.user = {}
     },
     setKeeps(state, data) {
-      state.keeps = data ; // Follow this template for vaults and remaining keeps
+      state.keeps = data ; // template
     },
-    setVaultKeep(state, data) {
-
+    setVaultKeeps(state, data) {
+      state.vaultKeeps = data;
     }, 
     setPublicKeeps(state, data) {
       state.publicKeeps = data
     },
-    setUserKeep(state, data){
-
-    }, 
     setVaults(state, data){
       state.vaults = data
+    }, 
+    setVault(state, data){
+      state.vault = data
     }
-
 
 
   },
@@ -144,19 +146,33 @@ export default new Vuex.Store({
       .then(res => {
         dispatch("getUserVaults")
       })
-    }
+    },
     //#region Vault - getVaults, drawVault, createVault, deleteVault
+    //userVault - enterVault and delete vault
 
-    
+    async getVault({commit, dispatch}, id){
+      try {
+        let res = await api.get('vaults/' + id)
+        commit('setVault', res.data)
+        router.push({name: "vault", params: {id: id}})
+      }
+      catch(error)
+      {console.log(error)}
+    },
+
+    async getVaultKeeps({commit, dispatch}, id){
+      try {
+        let res = await api.get('vaultkeeps/' + id)
+        commit('setVaultKeeps', res.data)
+      }
+      catch(error)
+      {console.log(error)}
+    }, 
+
+    createVaultKeep({commit, dispatch}, payload){
+        api.post('vaultkeeps', payload)
+        dispatch('getVaultKeeps', payload.vaultId)
+    }
+
   }
 })
-
-
-
-
-   // updateKeep({commit, dispatch}, payload){
-      //   api.put("keeps/" + payload.id, payload)
-      //   .then(res=> {
-      //     dispatch("getPublicKeep")
-      //   })
-      // }, 

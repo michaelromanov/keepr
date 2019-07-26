@@ -1,31 +1,45 @@
 <template>
     <div>
-        <div class="row">
-            
-
-
-
+        <h1>{{vault.name}}</h1>
+        <div class="card" style="width: 18rem;" v-for="vaultkeep in vaultkeeps" :key="vaultkeep.id">
+            <img :src="vaultkeep.img"  class="card-img-top" alt="..." />
+         <div class="card-body">
+            <h5 class="card-title">{{vaultkeep.name}}</h5>
+            <p class="card-text">{{vaultkeep.description}}</p>
+            <button class="btn btn-danger" @click="deleteKeepFromVault(vaultkeep.id)">Delete Keep From Vault</button>
         </div>
+        </div> 
     </div>
 </template>
 
 <script>
-//Vault logic happens here
+
 export default {
-    name: 'indVault', 
+    name: 'Vault', 
+    mounted() {
+        if(!this.vault.id){
+            this.$store.dispatch("getVault", this.vaultId)
+        }
+        this.store.dispatch("getVaultKeeps", this.vaultId)
+    }, 
+    computed: {
+        vault(){return this.$store.state.vault
+        }, 
+        user() {return this.$store.state.user
+        },
+        vaultId() {
+            return this.$route.params.id
+         }, 
+        vaultKeeps() {return this.$store.state.vaultKeeps}
+        },
     data() {
         return {}
     }, 
-    computed: {
-        user(){ }, 
-        vault() { }, 
-        vaultId() { }, 
-        vaultKeeps() { }
-    }, 
-    mounted() {}, 
-    methods: {}
-
-    //anything else?
+    methods: {
+        deleteKeepFromVault(id){
+            this.$store.dispatch("delVaultKeep", data)
+        }
+    }
 
 }
 </script>

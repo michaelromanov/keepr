@@ -29,7 +29,7 @@ namespace keepr.Repositories
 
         public IEnumerable<Keep> GetAll()
         {
-            return _db.Query<Keep>("SELECT * FROM keeps WHERE isPrivate=0");
+            return _db.Query<Keep>("SELECT * FROM keeps WHERE isPrivate = 0");
         }
 
         public IEnumerable<Keep> FindKeepsByUserId(string id)
