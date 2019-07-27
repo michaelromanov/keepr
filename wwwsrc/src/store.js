@@ -20,10 +20,8 @@ export default new Vuex.Store({
     keeps: [],
     keep:{},
     publicKeeps: [],
-    
     vaults:[],
     vault:{},
-
     vaultKeeps:[],
     
     
@@ -42,6 +40,12 @@ export default new Vuex.Store({
     resetState(state) {
       //clear the entire state object of user data
       state.user = {}
+      state.keeps=[]
+      state.keep={}
+      publicKeeps=[]
+      vaults=[]
+      vault={}
+      vaultKeeps=[]
     },
     setKeeps(state, data) {
       state.keeps = data ; // template

@@ -6,7 +6,9 @@
                 <div class="card-body">
                     <h5 class="card-title">{{keep.name}}</h5>
                     <p class="card-text">{{keep.description}}</p>
-                    
+                    <button>Views: 0</button>
+                    <button>Shares: 0</button>
+                    <button>Keeps: 0</button>
                     <form @submit.prevent="addKeepToVault(keep.id)">
                     <select v-model="selected">
                         <option disabled value>Add Keep To Secret Vault</option>

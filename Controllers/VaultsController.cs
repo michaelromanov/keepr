@@ -35,13 +35,15 @@ namespace keepr.Controllers
                 return BadRequest(e.Message);
             }
         }
-        
+        [Authorize]
         [HttpGet]
         public ActionResult<IEnumerable<Vault>> Get()
         {   
             try
             {
-                return Ok(_repo.GetAll());
+                var id = HttpContext.User.FindFirstValue("Id");
+                //similar to line 62 in keep controller
+                return Ok(_repo.GetAll(id));
             }
             catch (Exception e)
             {

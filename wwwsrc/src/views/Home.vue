@@ -8,13 +8,13 @@
              <router-link v-if="user.id" :to="{name: 'vaults'}">Route to Vault</router-link>
         </div>
         <h3>
-          Private Img's
+          My Keeps
         </h3>
         <user-keep /> 
         <new-keep />
         <br>
         <h3>
-          Public Img's
+          Public Keeps
         </h3>
         <public-keep /> 
 

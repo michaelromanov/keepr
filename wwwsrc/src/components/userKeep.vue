@@ -5,6 +5,9 @@
          <div class="card-body">
             <h5 class="card-title">{{keep.name}}</h5>
             <p class="card-text">{{keep.description}}</p>
+                    <p>Views: {{keep.views}}</p>
+                    <p>Shares: {{keep.shares}}</p>
+                    <p>Keeps: {{keep.keeps}}</p>
             <button class="btn btn-danger" @click="deleteKeep(keep.id)" v-show="keep.isPrivate == true">delete me</button>
         </div>
         </div> 

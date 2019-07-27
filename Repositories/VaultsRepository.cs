@@ -31,9 +31,10 @@ namespace keepr.Repositories
             return value;
         }
 
-        public IEnumerable<Vault> GetAll()
+        public IEnumerable<Vault> GetAll(string id)
         {
-            return _db.Query<Vault>("SELECT * FROM vaults");
+            //similar to line 35 in keep repository where only get if the user id is the id of the logged in
+            return _db.Query<Vault>("SELECT * FROM vaults WHERE userId = @id", new {id});
         }
 
         public Vault FindById(int id)
